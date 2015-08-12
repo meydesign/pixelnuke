@@ -1,0 +1,24 @@
+{
+  "name": "pixelnuke",
+  "version": "1.0.0",
+  "description": "PixelNuke CMS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sourceblender/pixelnuke.git"
+  },
+  "keywords": [
+    "PixelNuke",
+    "SourceBlender",
+    "CMS"
+  ],
+  "author": "SourceBlender <code@sourceblender.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sourceblender/pixelnuke/issues"
+  },
+  "homepage": "https://github.com/sourceblender/pixelnuke#readme"
+}

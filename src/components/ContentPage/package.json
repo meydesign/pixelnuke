@@ -1,0 +1,6 @@
+{
+  "name": "ContentPage",
+  "version": "1.0.0",
+  "main": "./ContentPage.jsx",
+  "private": true
+}

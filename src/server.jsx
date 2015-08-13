@@ -10,7 +10,7 @@ import winston from 'winston';
 // Express Settings
 const server = global.server = express();
 
-server.set('port', process.env.PORT || 4080);
+server.set('port', process.env.PORT || 8080);
 server.set('etag', false);
 server.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,6 +50,6 @@ server.listen(server.get('port'), () => {
   if (process.send) {
     process.send('online');
   } else {
-    winston.log('info', 'Transfer listening on port ' + server.get('port'));
+    winston.log('info', 'PixelNuke CMS listening on port ' + server.get('port'));
   }
 });

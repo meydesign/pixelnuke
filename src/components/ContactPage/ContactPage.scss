@@ -1,0 +1,12 @@
+$contact-container-width: 1000px;
+
+
+.ContactPage {
+
+  &-container {
+    margin: 0 auto;
+    padding: 0 0 40px;
+    max-width: $contact-container-width;
+  }
+
+}

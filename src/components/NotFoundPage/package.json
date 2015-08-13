@@ -1,0 +1,6 @@
+{
+  "name": "NotFoundPage",
+  "version": "1.0.0",
+  "main": "./NotFoundPage.jsx",
+  "private": true
+}

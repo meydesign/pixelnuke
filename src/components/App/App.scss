@@ -1,0 +1,149 @@
+$white-base:            hsl(0, 0%, 100%);
+
+$gray-base:             hsl(0, 0%, 0%);
+$gray-darker:           lighten($gray-base, 13.5%);
+$gray-dark:             lighten($gray-base, 25%);
+$gray:                  lighten($gray-base, 33.5%);
+$gray-light:            lighten($gray-base, 46.7%);
+$gray-lighter:          lighten($gray-base, 93.5%);
+
+$font-family-base:      'Segoe UI', 'HelveticaNeue-Light', sans-serif;
+
+$max-content-width:     1000px;
+
+$screen-xs-min:         480px;
+$screen-sm-min:         768px;
+$screen-md-min:         992px;
+$screen-lg-min:         1200px;
+
+$animation-swift-out:   .45s cubic-bezier(0.3, 1, 0.4, 1) 0s;
+
+
+$base-color:                                          #222;
+$base-color-light:                                    #fff;
+$base-color-dark:                                     #000;
+$base-background-color:                               #fff;
+$base-background-color-light:                         #ccc;
+$base-background-color-dark:                          #333;
+$base-border-color:                                   #ccc;
+
+$selection-background-color:                          #b3d4fc;
+
+$print-base-color:                                    #000;
+$print-base-border-color:                             #999;
+
+
+// Base styles
+html {
+  color: $base-color;
+  font-weight: 100;
+  font-size: 1em;
+  font-family: $font-family-base;
+  line-height: 1.375;
+}
+
+::selection {
+  background: $selection-background-color;
+  text-shadow: none;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: none;
+  border-top: 1px solid $base-border-color;
+  margin: 1em 0;
+  padding: 0;
+}
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+// Browser upgrade prompt
+.browserupgrade {
+  margin: 0.2em 0;
+  background: $base-background-color-light;
+  color: $base-color-dark;
+  padding: 0.2em 0;
+}
+
+
+// Print styles
+@media print {
+
+  *,
+  *:before,
+  *:after {
+    background: transparent;
+    color: $print-base-color;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid $print-base-border-color;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+}

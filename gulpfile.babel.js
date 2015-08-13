@@ -148,7 +148,7 @@ gulp.task('sync', ['serve'], cb => {
 
     // Informs browser-sync to proxy our Express app which would run
     // at the following location
-    proxy: 'localhost:4080',
+    proxy: 'localhost:' + (process.env.PORT || 8080),
   }, cb);
 
   process.on('exit', () => browserSync.exit());

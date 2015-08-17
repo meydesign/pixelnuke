@@ -1,2 +1,0 @@
-# pixelnuke
-PixelNuke CMS

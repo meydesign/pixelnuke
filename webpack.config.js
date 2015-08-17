@@ -24,7 +24,7 @@ const GLOBALS = {
 };
 
 // Common configuration chunk to be used for both
-// client-side (app.jsx) and server-side (server.jsx) bundles
+// client-side (app.js) and server-side (server.js) bundles
 // -----------------------------------------------------------------------------
 const config = {
   output: {
@@ -88,10 +88,10 @@ const config = {
   postcss: [autoprefixer(AUTOPREFIXER_BROWSERS)],
 };
 
-// Configuration for the client-side bundle (app.jsx)
+// Configuration for the client-side bundle (app.js)
 // -----------------------------------------------------------------------------
 const appConfig = merge({}, config, {
-  entry: './src/app.jsx',
+  entry: './src/app.js',
   output: {
     path: './build/public',
     filename: 'app.js',
@@ -110,10 +110,10 @@ const appConfig = merge({}, config, {
   ),
 });
 
-// Configuration for the server-side bundle (server.jsx)
+// Configuration for the server-side bundle (server.js)
 // -----------------------------------------------------------------------------
 const serverConfig = merge({}, config, {
-  entry: './src/server.jsx',
+  entry: './src/server.js',
   output: {
     path: './build',
     filename: 'server.js',

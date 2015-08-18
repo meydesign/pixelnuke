@@ -1,11 +1,6 @@
-'use strict';
+import angular from 'angular';
 
-angular.module('pixelnukeApp')
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('admin', {
-        url: '/admin',
-        templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
-      });
-  });
+export default angular
+  .module('admin', [
+    require('./admin.controller').name,
+  ]);

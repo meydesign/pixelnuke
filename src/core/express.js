@@ -1,45 +1,38 @@
-/**
- * Express configuration
- */
+import express from 'express';
+import favicon from 'serve-favicon';
+import morgan from 'morgan';
+import compression from 'compression';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
+import errorHandler from 'errorhandler';
+import path from 'path';
+import config from 'config';
+import passport from 'passport';
 
-'use strict';
+module.exports = (app) => {
+  const env = app.get('env');
 
-var express = require('express');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var compression = require('compression');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var cookieParser = require('cookie-parser');
-var errorHandler = require('errorhandler');
-var path = require('path');
-var config = require('config');
-var passport = require('passport');
-
-module.exports = function(app) {
-  var env = app.get('env');
-
-  app.set('views', config.root + '/server/views');
-  app.set('view engine', 'jade');
   app.use(compression());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
+
   app.use(cookieParser());
+
   app.use(passport.initialize());
 
-  if ('production' === env) {
-    app.use(favicon(path.resolve('../public/favicon.ico')));
-    app.use(express.static(path.resolve('../public')));
-    app.set('appPath', path.resolve('../public'));
-    app.use(morgan('dev'));
-  }
+  app.set('views', config.root + '/server/views');
+  app.set('view engine', 'jade');
 
-  if ('development' === env || 'test' === env) {
-    app.use(express.static(path.resolve('../.tmp')));
-    app.use(express.static(path.resolve('../public')));
-    app.set('appPath', path.resolve('../'));
-    app.use(morgan('dev'));
-    app.use(errorHandler()); // Error handler - has to be last
+  app.use(express.static(path.join(__dirname, '/public')));
+  app.set('appPath', path.join(__dirname, '/public'));
+
+  app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
+
+  app.use(morgan('dev'));
+
+  if (env !== 'production') {
+    app.use(errorHandler());
   }
 };

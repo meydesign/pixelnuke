@@ -1,34 +1,37 @@
-'use strict';
+import angular from 'angular';
+
+import '../../../components/auth/auth.service';
 
 angular.module('pixelnukeApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
+  .controller('SignupCtrl', ($location, $scope, Auth) => {
     $scope.user = {};
     $scope.errors = {};
 
-    $scope.register = function(form) {
+    $scope.register = (form) => {
       $scope.submitted = true;
 
-      if(form.$valid) {
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          err = err.data;
-          $scope.errors = {};
+      if (form.$valid) {
+        Auth
+          .createUser({
+            name: $scope.user.name,
+            email: $scope.user.email,
+            password: $scope.user.password,
+          })
 
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
+          .then(() => {
+            $location.path('/');
+          })
+
+          .catch((err) => {
+            localError = err.data;
+
+            $scope.errors = {};
+
+            angular.forEach(localError.errors, (error, field) => {
+              form[field].$setValidity('mongoose', false);
+              $scope.errors[field] = error.message;
+            });
           });
-        });
       }
     };
-
   });

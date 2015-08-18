@@ -1,26 +1,30 @@
-'use strict';
+import angular from 'angular';
 
-angular.module('pixelnukeApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+import '../../../components/auth/auth.service';
+
+angular
+  .module('pixelnukeApp')
+  .controller('LoginCtrl', ($location, $scope, Auth) => {
     $scope.user = {};
     $scope.errors = {};
 
-    $scope.login = function(form) {
+    $scope.login = (form) => {
       $scope.submitted = true;
 
-      if(form.$valid) {
-        Auth.login({
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
-          // Logged in, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          $scope.errors.other = err.message;
-        });
+      if (form.$valid) {
+        Auth
+          .login({
+            email: $scope.user.email,
+            password: $scope.user.password,
+          })
+
+          .then(() => {
+            $location.path('/');
+          })
+
+          .catch((err) => {
+            $scope.errors.other = err.message;
+          });
       }
     };
-
   });

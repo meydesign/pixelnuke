@@ -1,74 +1,55 @@
-/* global io */
-'use strict';
+import _ from 'lodash';
+import angular from 'angular';
+import io from 'socket.io-client';
+import 'angular-socket-io';
 
-angular.module('pixelnukeApp')
-  .factory('socket', function(socketFactory) {
-
-    // socket.io now auto-configures its connection when we ommit a connection url
-    var ioSocket = io('', {
-      // Send auth token on connection, you will need to DI the Auth service above
-      // 'query': 'token=' + Auth.getToken()
-      path: '/socket.io-client'
+angular
+  .module('pixelnukeApp')
+  .factory('socket', (socketFactory) => {
+    const ioSocket = io('', {
+      path: '/socket.io-client',
     });
 
-    var socket = socketFactory({
-      ioSocket: ioSocket
+    const socket = socketFactory({
+      ioSocket: ioSocket,
     });
 
     return {
       socket: socket,
 
-      /**
-       * Register listeners to sync an array with updates on a model
-       *
-       * Takes the array we want to sync, the model name that socket updates are sent from,
-       * and an optional callback function after new items are updated.
-       *
-       * @param {String} modelName
-       * @param {Array} array
-       * @param {Function} cb
-       */
-      syncUpdates: function (modelName, array, cb) {
-        cb = cb || angular.noop;
+      syncUpdates: (modelName, array, cb) => {
+        let localEvent;
 
-        /**
-         * Syncs item creation/updates on 'model:save'
-         */
-        socket.on(modelName + ':save', function (item) {
-          var oldItem = _.find(array, {_id: item._id});
-          var index = array.indexOf(oldItem);
-          var event = 'created';
+        const localCallback = cb || angular.noop;
 
-          // replace oldItem if it exists
-          // otherwise just add item to the collection
+        socket.on(modelName + ':save', (item) => {
+          localEvent = 'created';
+
+          const oldItem = _.find(array, { _id: item._id });
+          const index = array.indexOf(oldItem);
+
           if (oldItem) {
             array.splice(index, 1, item);
-            event = 'updated';
+            localEvent = 'updated';
           } else {
             array.push(item);
           }
 
-          cb(event, item, array);
+          localCallback(localEvent, item, array);
         });
 
-        /**
-         * Syncs removed items on 'model:remove'
-         */
-        socket.on(modelName + ':remove', function (item) {
-          var event = 'deleted';
-          _.remove(array, {_id: item._id});
-          cb(event, item, array);
+        socket.on(modelName + ':remove', (item) => {
+          localEvent = 'deleted';
+
+          _.remove(array, { _id: item._id });
+
+          localCallback(localEvent, item, array);
         });
       },
 
-      /**
-       * Removes listeners for a models updates on the socket
-       *
-       * @param modelName
-       */
-      unsyncUpdates: function (modelName) {
+      unsyncUpdates: (modelName) => {
         socket.removeAllListeners(modelName + ':save');
         socket.removeAllListeners(modelName + ':remove');
-      }
+      },
     };
   });

@@ -19,16 +19,20 @@ if (config.seedDB) {
 const app = express();
 const server = require('http').createServer(app);
 const socketio = require('socket.io')(server, {
-  serveClient: config.env !== 'production',
+  serveClient: true,
   path: '/socket.io-client',
 });
 require('./core/socketio')(socketio);
 require('./core/express')(app);
-require('./routes')(app);
+require('./server.routes')(app);
 
 // Start server
 server.listen(config.port, config.ip, () => {
-  winston.log('info', 'Express server listening on %d, in %s mode', config.port, app.get('env'));
+  if (process.send) {
+    process.send('online');
+  } else {
+    winston.log('info', 'Express server listening on %d, in %s mode', config.port, app.get('env'));
+  }
 });
 
 // Expose app

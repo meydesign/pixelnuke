@@ -1,146 +1,116 @@
-'use strict';
+import angular from 'angular';
+import 'angular-cookies';
+
+import './user.service';
 
 angular.module('pixelnukeApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
-    var currentUser = {};
-    if($cookieStore.get('token')) {
+  .factory('Auth', function Auth($http, $location, $q, $rootScope, $cookieStore, User) {
+    let currentUser = {};
+
+    if ($cookieStore.get('token')) {
       currentUser = User.get();
     }
 
     return {
+      login: (user, callback) => {
+        const cb = callback || angular.noop;
+        const deferred = $q.defer();
 
-      /**
-       * Authenticate user and save token
-       *
-       * @param  {Object}   user     - login info
-       * @param  {Function} callback - optional
-       * @return {Promise}
-       */
-      login: function(user, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
+        $http
+          .post('/auth/local', {
+            email: user.email,
+            password: user.password,
+          })
 
-        $http.post('/auth/local', {
-          email: user.email,
-          password: user.password
-        }).
-        success(function(data) {
-          $cookieStore.put('token', data.token);
-          currentUser = User.get();
-          deferred.resolve(data);
-          return cb();
-        }).
-        error(function(err) {
-          this.logout();
-          deferred.reject(err);
-          return cb(err);
-        }.bind(this));
+          .success((data) => {
+            $cookieStore.put('token', data.token);
+            currentUser = User.get();
+            deferred.resolve(data);
+
+            return cb();
+          })
+
+          .error((err) => {
+            this.logout();
+            deferred.reject(err);
+
+            return cb(err);
+          }.bind(this));
 
         return deferred.promise;
       },
 
-      /**
-       * Delete access token and user info
-       *
-       * @param  {Function}
-       */
-      logout: function() {
+      logout: () => {
         $cookieStore.remove('token');
         currentUser = {};
       },
 
-      /**
-       * Create a new user
-       *
-       * @param  {Object}   user     - user info
-       * @param  {Function} callback - optional
-       * @return {Promise}
-       */
-      createUser: function(user, callback) {
-        var cb = callback || angular.noop;
+      createUser: (user, callback) => {
+        const cb = callback || angular.noop;
 
         return User.save(user,
-          function(data) {
+          (data) => {
             $cookieStore.put('token', data.token);
             currentUser = User.get();
             return cb(user);
           },
-          function(err) {
+
+          (err) => {
             this.logout();
             return cb(err);
-          }.bind(this)).$promise;
+          }.bind(this)
+        ).$promise;
       },
 
-      /**
-       * Change password
-       *
-       * @param  {String}   oldPassword
-       * @param  {String}   newPassword
-       * @param  {Function} callback    - optional
-       * @return {Promise}
-       */
-      changePassword: function(oldPassword, newPassword, callback) {
-        var cb = callback || angular.noop;
+      changePassword: (oldPassword, newPassword, callback) => {
+        const cb = callback || angular.noop;
 
-        return User.changePassword({ id: currentUser._id }, {
-          oldPassword: oldPassword,
-          newPassword: newPassword
-        }, function(user) {
-          return cb(user);
-        }, function(err) {
-          return cb(err);
-        }).$promise;
+        return User.changePassword(
+          { id: currentUser._id },
+          { oldPassword: oldPassword, newPassword: newPassword },
+          (user) => {
+            return cb(user);
+          },
+
+          (err) => {
+            return cb(err);
+          }
+        ).$promise;
       },
 
-      /**
-       * Gets all available info on authenticated user
-       *
-       * @return {Object} user
-       */
-      getCurrentUser: function() {
+      getCurrentUser: () => {
         return currentUser;
       },
 
-      /**
-       * Check if a user is logged in
-       *
-       * @return {Boolean}
-       */
-      isLoggedIn: function() {
+      isLoggedIn: () => {
         return currentUser.hasOwnProperty('role');
       },
 
-      /**
-       * Waits for currentUser to resolve before checking if user is logged in
-       */
-      isLoggedInAsync: function(cb) {
-        if(currentUser.hasOwnProperty('$promise')) {
-          currentUser.$promise.then(function() {
-            cb(true);
-          }).catch(function() {
-            cb(false);
-          });
-        } else if(currentUser.hasOwnProperty('role')) {
+      isLoggedInAsync: (cb) => {
+        if (currentUser.hasOwnProperty('$promise')) {
+          currentUser
+            .$promise
+
+            .then(() => {
+              cb(true);
+            })
+
+            .catch(() => {
+              cb(false);
+            });
+        } else if (currentUser.hasOwnProperty('role')) {
           cb(true);
         } else {
           cb(false);
         }
       },
 
-      /**
-       * Check if a user is an admin
-       *
-       * @return {Boolean}
-       */
-      isAdmin: function() {
+      isAdmin: () => {
         return currentUser.role === 'admin';
       },
 
-      /**
-       * Get auth token
-       */
-      getToken: function() {
+      getToken: () => {
         return $cookieStore.get('token');
-      }
+      },
     };
   });

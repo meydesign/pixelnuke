@@ -1,16 +1,27 @@
-'use strict';
+import angular from 'angular';
 
-angular.module('socketMock', [])
-  .factory('socket', function() {
+angular
+  .module('socketMock', [])
+  .factory('socket', () => {
     return {
       socket: {
-        connect: function() {},
-        on: function() {},
-        emit: function() {},
-        receive: function() {}
+        connect: () => {
+        },
+
+        on: () => {
+        },
+
+        emit: () => {
+        },
+
+        receive: () => {
+        },
       },
 
-      syncUpdates: function() {},
-      unsyncUpdates: function() {}
+      syncUpdates: () => {
+      },
+
+      unsyncUpdates: () => {
+      },
     };
   });

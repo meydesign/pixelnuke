@@ -1,11 +1,6 @@
-'use strict';
+import angular from 'angular';
 
-angular.module('pixelnukeApp')
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('main', {
-        url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
-      });
-  });
+export default angular
+  .module('main', [
+    require('./main.controller').name,
+  ]);

@@ -1,17 +1,15 @@
-'use strict';
+import angular from 'angular';
 
-/**
- * Removes server error when user updates input
- */
-angular.module('pixelnukeApp')
-  .directive('mongooseError', function () {
+angular
+  .module('pixelnukeApp')
+  .directive('mongooseError', () => {
     return {
       restrict: 'A',
       require: 'ngModel',
-      link: function(scope, element, attrs, ngModel) {
-        element.on('keydown', function() {
+      link: (scope, element, attrs, ngModel) => {
+        element.on('keydown', () => {
           return ngModel.$setValidity('mongoose', true);
         });
-      }
+      },
     };
   });

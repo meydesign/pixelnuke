@@ -1,14 +1,16 @@
-'use strict';
+import angular from 'angular';
 
-angular.module('pixelnukeApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+import '../../components/auth/user.service';
 
-    // Use the User $resource to fetch all users
+angular
+  .module('pixelnukeApp')
+  .controller('AdminCtrl', ($http, $scope, User) => {
     $scope.users = User.query();
 
-    $scope.delete = function(user) {
+    $scope.delete = (user) => {
       User.remove({ id: user._id });
-      angular.forEach($scope.users, function(u, i) {
+
+      angular.forEach($scope.users, (u, i) => {
         if (u === user) {
           $scope.users.splice(i, 1);
         }

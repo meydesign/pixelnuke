@@ -1,22 +1,26 @@
-'use strict';
+import angular from 'angular';
+import 'angular-resource';
 
-angular.module('pixelnukeApp')
-  .factory('User', function ($resource) {
-    return $resource('/api/users/:id/:controller', {
-      id: '@_id'
-    },
-    {
-      changePassword: {
-        method: 'PUT',
-        params: {
-          controller:'password'
-        }
+angular
+  .module('pixelnukeApp')
+  .factory('User', ($resource) => {
+    return $resource('/api/users/:id/:controller',
+      {
+        id: '@_id',
       },
-      get: {
-        method: 'GET',
-        params: {
-          id:'me'
-        }
+      {
+        changePassword: {
+          method: 'PUT',
+          params: {
+            controller: 'password',
+          },
+        },
+        get: {
+          method: 'GET',
+          params: {
+            id: 'me',
+          },
+        },
       }
-	  });
+    );
   });

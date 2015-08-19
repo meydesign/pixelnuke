@@ -99,13 +99,12 @@ gulp.task('build:watch', cb => {
 // Launch a Node.js/Express server
 gulp.task('serve', ['build:watch'], cb => {
   src.server = [
-    'build/server.js',
-    'build/content/**/*',
+    'build/server.bundle.js',
     'build/templates/**/*',
   ];
   let started = false;
   let server = (function startup() {
-    const child = cp.fork('build/server.js', {
+    const child = cp.fork('build/server.bundle.js', {
       env: Object.assign({NODE_ENV: 'development'}, process.env),
     });
     child.once('message', message => {
@@ -163,8 +162,8 @@ gulp.task('sync', ['serve'], cb => {
 gulp.task('deploy', cb => {
   const push = require('git-push');
   const remote = argv.production
-    ? 'https://github.com/{user}/{repo}.git'
-    : 'https://github.com/{user}/{repo}-test.git';
+    ? 'https://github.com/sourceblender/pixelnuke-production.git'
+    : 'https://github.com/sourceblender/pixelnuke-staging.git';
 
   push('./build', remote, cb);
 });

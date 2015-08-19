@@ -1,22 +1,39 @@
-import angular from 'angular';
-import 'angular-bootstrap';
-import 'angular-cookies';
-import 'angular-resource';
-import 'angular-sanitize';
-import 'angular-socket-io';
-import 'angular-ui-router';
+require('angular');
+require('angular-cookies');
+require('angular-resource');
+require('angular-sanitize');
+require('angular-socket-io');
+require('angular-bootstrap');
+require('angular-ui-router');
+require('./components/admin');
+require('./components/auth');
+require('./components/login');
+require('./components/main');
+require('./components/modal');
+require('./components/mongoose');
+require('./components/navbar');
+require('./components/settings');
+require('./components/signup');
+require('./components/socket');
 
-module.exports = angular
+export default angular
   .module('pixelnukeApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
     'btford.socket-io',
-    'ui.router',
     'ui.bootstrap',
-    require('./content/account/account.routing'),
-    require('./content/admin/admin.routing'),
-    require('./content/main/main.routing'),
+    'ui.router',
+    'pn.admin',
+    'pn.auth',
+    'pn.login',
+    'pn.main',
+    'pn.modal',
+    'pn.mongoose',
+    'pn.navbar',
+    'pn.socket',
+    'pn.settings',
+    'pn.signup',
   ])
 
   .config(($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) => {

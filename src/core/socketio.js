@@ -9,16 +9,18 @@ function onConnect(socket) {
     winston.log('info', '[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
-  winston('info', '[%s] CONNECTED', socket.address);
+  winston.log('info', '[%s] CONNECTED', socket.address);
 
   require('../api/thing/thing.socket').register(socket);
 }
 
 module.exports = (socketio) => {
   socketio.on('connection', (socket) => {
-    socket.address = socket.handshake.address !== null
+    socket.address = socket.address !== null
       ? socket.handshake.address.address + ':' + socket.handshake.address.port
       : process.env.DOMAIN;
+
+    console.log(socket.address);
 
     socket.connectedAt = new Date();
 

@@ -27,7 +27,7 @@
     <!--[if lt IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <h1>Angular Setup</h1>
+    <div ng-include=require('jade!../components/navbar/navbar.jade')></div>
     <div ui-view=""></div>
     <script src="/app.bundle.js"></script>
   <script src="http://localhost:8080/server.bundle.js"></script></body>

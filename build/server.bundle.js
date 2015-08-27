@@ -882,9 +882,7 @@ module.exports =
 
 	module.exports = function (socketio) {
 	  socketio.on('connection', function (socket) {
-	    socket.address = socket.address !== null ? socket.handshake.address.address + ':' + socket.handshake.address.port : process.env.DOMAIN;
-
-	    console.log(socket.address);
+	    socket.address = socket.handshake.address !== null ? socket.handshake.address.address + ':' + socket.handshake.address.port : process.env.DOMAIN;
 
 	    socket.connectedAt = new Date();
 

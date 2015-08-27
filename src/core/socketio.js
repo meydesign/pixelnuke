@@ -16,11 +16,9 @@ function onConnect(socket) {
 
 module.exports = (socketio) => {
   socketio.on('connection', (socket) => {
-    socket.address = socket.address !== null
+    socket.address = socket.handshake.address !== null
       ? socket.handshake.address.address + ':' + socket.handshake.address.port
       : process.env.DOMAIN;
-
-    console.log(socket.address);
 
     socket.connectedAt = new Date();
 

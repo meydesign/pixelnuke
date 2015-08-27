@@ -6,5 +6,5 @@ module.exports = {
   },
 
   // Seed Database
-  seedDB: false,
+  seedDB: true,
 };

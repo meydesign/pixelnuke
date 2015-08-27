@@ -1,7 +1,4 @@
-/**
- * Webpack config for development
- */
-module.exports = require('./webpack.make')({
-  BUILD: false,
-  TEST: false,
-});
+module.exports = [
+  require('./webpack.client')({ build: false }),
+  require('./webpack.server')({ build: false }),
+];

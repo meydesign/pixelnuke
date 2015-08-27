@@ -8,6 +8,12 @@ module.exports = function makeWebpackConfig(options) {
    * Environment type
    * BUILD is for generating minified builds
    * TEST is for generating test builds
+
+   "template-html-loader": "0.0.3",
+   "jade-html-loader": "0.0.3",
+   "ng-cache-loader": "0.0.9",
+   "postcss": "^5.0.2",
+   "postcss-loader": "^0.6.0",
    */
   const BUILD = !!options.BUILD;
   const TEST = !!options.TEST;

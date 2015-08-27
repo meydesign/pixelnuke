@@ -20,14 +20,20 @@ gulp.task('default', ['sync']);
 
 // Clean output directories
 gulp.task('clean', cb => {
-  del(['.tmp', 'build/*', '!build/.git'], {dot: true}, () => {
-    mkdirp('build/public', cb);
+  del(['build/*', '!build/.git'], { dot: true }, () => {
+    mkdirp('build/public');
+    mkdirp('build/templates');
+    cb();
   });
 });
 
 // Static files
 gulp.task('assets', () => {
-  src.assets = 'src/public/**';
+  src.assets = [
+    'src/public/**',
+    '!src/public/images*/**',
+    '!src/public/images',
+  ];
 
   return gulp.src(src.assets)
     .pipe($.changed('build/public'))
@@ -37,13 +43,41 @@ gulp.task('assets', () => {
 
 // Resource files
 gulp.task('resources', () => {
-  src.resources = ['package.json', 'src/content*/**', 'src/templates*/**'];
+  src.resources = [
+    'package.json',
+  ];
 
   return gulp.src(src.resources)
     .pipe($.changed('build'))
     .pipe(gulp.dest('build'))
-    .pipe($.size({title: 'resources'}));
+    .pipe($.size({ title: 'resources' }));
 });
+
+// Template files
+gulp.task('templates', () => {
+  src.templates = [
+    'src/templates/**',
+    '!src/templates/index.html',
+  ];
+
+  return gulp.src(src.templates)
+    .pipe($.changed('build/templates'))
+    .pipe(gulp.dest('build/templates'))
+    .pipe($.size({ title: 'templates' }));
+});
+
+// Style files
+// gulp.task('styles', () => {
+//   src.templates = [
+//     'src/app/app.scss',
+//   ];
+//
+//   return gulp.src(src.templates)
+//     .pipe(sass().on('error', sass.logError))
+//     .pipe($.changed('build/public'))
+//     .pipe(gulp.dest('build/public'))
+//     .pipe($.size({ title: 'styles' }));
+// });
 
 // Bundle
 gulp.task('bundle', cb => {
@@ -83,7 +117,7 @@ gulp.task('bundle', cb => {
 
 // Build the application
 gulp.task('build', ['clean'], cb => {
-  runSequence(['assets', 'resources'], ['bundle'], cb);
+  runSequence(['assets', 'resources', 'templates'], ['bundle'], cb);
 });
 
 // Build and watch for modifications
@@ -92,6 +126,7 @@ gulp.task('build:watch', cb => {
   runSequence('build', () => {
     gulp.watch(src.assets, ['assets']);
     gulp.watch(src.resources, ['resources']);
+    gulp.watch(src.templates, ['templates']);
     cb();
   });
 });
@@ -137,17 +172,15 @@ gulp.task('sync', ['serve'], cb => {
   browserSync = require('browser-sync');
 
   browserSync({
-    logPrefix: 'RSK',
+    logPrefix: 'PixelNuke',
+
     notify: false,
 
-    // Run as an https by setting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
     https: false,
 
-    // Informs browser-sync to proxy our Express app which would run
-    // at the following location
-    proxy: 'localhost:' + (process.env.PORT || 8080),
+    open: 'local',
+
+    // proxy: 'localhost:' + (process.env.PORT || 8080),
   }, cb);
 
   process.on('exit', () => browserSync.exit());

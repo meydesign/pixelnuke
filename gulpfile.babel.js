@@ -178,9 +178,9 @@ gulp.task('sync', ['serve'], cb => {
 
     https: false,
 
-    open: 'local',
+    // open: 'local',
 
-    // proxy: 'localhost:' + (process.env.PORT || 8080),
+    proxy: 'localhost:' + (process.env.PORT || 8080),
   }, cb);
 
   process.on('exit', () => browserSync.exit());

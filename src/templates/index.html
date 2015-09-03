@@ -26,6 +26,12 @@
         improve your experience.
       </p>
     <![endif]-->
-    <div ui-view=""></div>
+    <div ui-view="topNav"></div>
+    <div>
+      <div ui-view="sideBar"></div>
+      <div ui-view="content" class="container"></div>
+    </div>
+    <div ui-view="footer"></div>
+
   </body>
 </html>

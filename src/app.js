@@ -12,6 +12,7 @@ require('./components/main');
 require('./components/modal');
 require('./components/mongoose');
 require('./components/navbar');
+require('./components/sidebar');
 require('./components/settings');
 require('./components/signup');
 require('./components/socket');
@@ -31,6 +32,7 @@ export default angular
     'pn.modal',
     'pn.mongoose',
     'pn.navbar',
+    'pn.sidebar',
     'pn.socket',
     'pn.settings',
     'pn.signup',

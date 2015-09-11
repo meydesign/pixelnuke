@@ -5,21 +5,13 @@ import 'angular-sanitize';
 import 'angular-socket-io';
 import 'angular-bootstrap';
 import 'angular-ui-router';
-import './components/admin';
+// import './components/admin';
 import './components/auth';
-// import './components/main';
 import './components/layout';
-import './components/content-header';
-import './components/login';
-import './components/dashboard';
 import './components/modal';
 import './components/mongoose';
-import './components/navbar';
-import './components/footer';
-import './components/sidebar-left';
-import './components/sidebar-right';
-import './components/settings';
-import './components/signup';
+// import './components/settings';
+// import './components/signup';
 import './components/socket';
 import './components/rootClasses';
 
@@ -31,22 +23,14 @@ export default angular
     'btford.socket-io',
     'ui.bootstrap',
     'ui.router',
-    'pn.admin',
+    // 'pn.admin',
     'pn.auth',
-    // 'pn.main',
     'pn.layout',
-    'pn.contentHeader',
-    'pn.dashboard',
-    'pn.login',
     'pn.modal',
     'pn.mongoose',
-    'pn.navbar',
-    'pn.footer',
-    'pn.sidebarLeft',
-    'pn.sidebarRight',
     'pn.socket',
-    'pn.settings',
-    'pn.signup',
+    // 'pn.settings',
+    // 'pn.signup',
     'pn.rootClasses',
   ])
 
@@ -88,7 +72,6 @@ export default angular
     $rootScope.$on('$stateChangeStart', (event, next) => {
       Auth.isLoggedInAsync((loggedIn) => {
         if (next.authenticate && !loggedIn) {
-          event.preventDefault();
           $location.path('/login');
         }
       });

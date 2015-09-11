@@ -1,12 +1,8 @@
 export default ($stateProvider) => {
   $stateProvider
-    .state('sourceCopy', {
-      parent: 'layout',
-      abstract: true,
-      url: '',
-    })
-    .state('sourceCopy.dashboard', {
-      url: 'dashboard',
+    .state('layout.dashboard', {
+      url: '/',
+      authenticate: true,
       views: {
         'content@layout': {
           template: require('./dashboard.jade'),

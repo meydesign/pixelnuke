@@ -1,7 +1,8 @@
 export default ($stateProvider) => {
   $stateProvider
-    .state('sourceCopy.login', {
-      url: '',
+    .state('layout.login', {
+      parent: 'layout',
+      url: '/login',
       views: {
         'content@layout': {
           template: require('./login.jade'),

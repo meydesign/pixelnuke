@@ -62,6 +62,12 @@ app.route('/:url(api|auth|components|app|bower_components|assets)/*')
       .sendFile(path.join(__dirname, '/templates/error404.html'));
   });
 
+app.route('/*')
+  .get((req, res) => {
+    res
+      .sendfile(path.join(__dirname, '/templates/index.html'));
+  });
+
 // Start server
 const server = app.listen(config.port, config.ip, () => {
   const io = require('socket.io')(server, {

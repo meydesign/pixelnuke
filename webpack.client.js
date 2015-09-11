@@ -98,7 +98,7 @@ module.exports = function webpackClient(options) {
       new ExtractTextPlugin('[name].css'),
       new HtmlWebpackPlugin({
         title: 'pixelnuke',
-        filename: 'index.html',
+        filename: '../templates/index.html',
         template: path.join(__dirname, '/src/templates/index.html'),
         favicon: path.join(__dirname, '/src/public/favicon.ico'),
         inject: 'body',

@@ -1,5 +1,5 @@
 export default ($location, $scope, Auth, $stateParams) => {
-  $scope.$parent.$parent.ch = $stateParams.contentHeader;
+  $scope.$parent.ch = $stateParams.contentHeader;
 
   $scope.user = {};
   $scope.errors = {};

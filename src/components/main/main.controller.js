@@ -1,4 +1,4 @@
-export default ($http, $scope, socket) => {
+export default ($http, $scope, socket, $stateParams) => {
   $scope.awesomeThings = [];
 
   $http

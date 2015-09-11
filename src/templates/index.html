@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" root-classes ng-app="pixelnukeApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
     <![endif]-->
   </head>
 
-  <body ng-app="pixelnukeApp">
+  <body>
     <!--[if lt IE 8]>
       <p class="browsehappy">
         You are using an <strong>outdated</strong> browser. Please
@@ -26,12 +26,8 @@
         improve your experience.
       </p>
     <![endif]-->
-    <div ui-view="topNav"></div>
-    <div>
-      <div ui-view="sideBar"></div>
-      <div ui-view="content" class="container"></div>
-    </div>
-    <div ui-view="footer"></div>
+    <section class="body" ui-view>
 
+    </section>
   </body>
 </html>

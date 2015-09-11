@@ -1,0 +1,12 @@
+header.page-header
+  h2 {{ ch.title }}
+  
+  .right-wrapper.pull-right
+    ol.breadcrumbs
+      li(ng-repeat='crumb in ch.breadcrumbs')
+        a(ui-sref='{{ crumb.state }}')
+          i.fa(class='{{ crumb.icon }}') &nbsp;
+          | {{ crumb.text }}
+
+    a.sidebar-right-toggle(ng-click='toggleRightSideBar()')
+      i.fa.fa-chevron-left

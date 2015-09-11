@@ -1,0 +1,18 @@
+.sidebar-header
+  .sidebar-title
+    | Navigation
+  .sidebar-toggle.hidden-xs(ng-click='toggle()')
+    i.fa.fa-bars(aria-label='Toggle sidebar')
+
+.nano
+  .nano-content
+    nav#menu.nav-main(role='navagation')
+      ul.nav.nav-main
+        li.nav-active
+          a(ui-sref='sourceCopy.dashboard')
+            i.fa.fa-home(aria-hidden='true')
+            span Dashboard
+        li
+          a(href='')
+            i.fa.fa-user(aria-hidden='true')
+            span My Profile

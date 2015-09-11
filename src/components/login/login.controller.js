@@ -1,4 +1,6 @@
-export default ($location, $scope, Auth) => {
+export default ($location, $scope, Auth, $stateParams) => {
+  $scope.$parent.$parent.ch = $stateParams.contentHeader;
+
   $scope.user = {};
   $scope.errors = {};
 
@@ -13,7 +15,7 @@ export default ($location, $scope, Auth) => {
         })
 
         .then(() => {
-          $location.path('/');
+          $location.path('/dashboard');
         })
 
         .catch((err) => {

@@ -16,9 +16,9 @@ module.exports = function webpackClient(options) {
 
     output: {
       path: path.join(__dirname, '/build/public'),
-      filename: BUILD ? 'app.[hash].js' : 'app.bundle.js',
-      chunkFilename: BUILD ? 'app.[hash].js' : 'app.bundle.js',
-      sourceMapFilename: BUILD ? 'app.[hash].js.map' : 'app.bundle.js.map',
+      filename: BUILD ? '[name].[hash].js' : '[name].bundle.js',
+      chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js',
+      sourceMapFilename: BUILD ? '[name].[hash].js.map' : '[name].bundle.js.map',
       publicPath: '/',
       libraryTaret: 'umd',
     },

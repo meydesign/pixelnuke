@@ -1,4 +1,4 @@
-export default ($location, $scope, Auth) => {
+export default ($location, $scope, Auth, $rootScope) => {
   $scope.menu = [
     {
       title: 'Home',

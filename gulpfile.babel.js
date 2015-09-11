@@ -173,14 +173,12 @@ gulp.task('sync', ['serve'], cb => {
 
   browserSync({
     logPrefix: 'PixelNuke',
-
     notify: false,
-
     https: false,
-
-    // open: 'local',
-
-    proxy: 'localhost:' + (process.env.PORT || 8080),
+    proxy: {
+      target: 'http://localhost:' + (process.env.PORT || 8080),
+      ws: true,
+    },
   }, cb);
 
   process.on('exit', () => browserSync.exit());

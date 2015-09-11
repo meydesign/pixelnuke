@@ -1,0 +1,8 @@
+header.header(ui-view='topNav')
+.inner-wrapper
+  aside#sidebar-left.sidebar-left(ui-view='sideBarLeft', ng-class='{ "hidden": isLoggedIn() }')
+  section.content-body(role='main')
+    div(ui-view='contentHeader', ng-class='{ "hidden": isLoggedIn() }')
+    .row(ui-view='content')
+aside#sidebar-right.sidebar-right(ui-view='sidebarRight', ng-class='{ "hidden": isLoggedIn() }')
+.page-footer(ui-view='footer')

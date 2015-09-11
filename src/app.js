@@ -1,21 +1,27 @@
-require('angular');
-require('angular-cookies');
-require('angular-resource');
-require('angular-sanitize');
-require('angular-socket-io');
-require('angular-bootstrap');
-require('angular-ui-router');
-require('./components/admin');
-require('./components/auth');
-require('./components/login');
-require('./components/main');
-require('./components/modal');
-require('./components/mongoose');
-require('./components/navbar');
-require('./components/sidebar');
-require('./components/settings');
-require('./components/signup');
-require('./components/socket');
+import 'angular';
+import 'angular-cookies';
+import 'angular-resource';
+import 'angular-sanitize';
+import 'angular-socket-io';
+import 'angular-bootstrap';
+import 'angular-ui-router';
+import './components/admin';
+import './components/auth';
+// import './components/main';
+import './components/layout';
+import './components/content-header';
+import './components/login';
+import './components/dashboard';
+import './components/modal';
+import './components/mongoose';
+import './components/navbar';
+import './components/footer';
+import './components/sidebar-left';
+import './components/sidebar-right';
+import './components/settings';
+import './components/signup';
+import './components/socket';
+import './components/rootClasses';
 
 export default angular
   .module('pixelnukeApp', [
@@ -27,15 +33,21 @@ export default angular
     'ui.router',
     'pn.admin',
     'pn.auth',
+    // 'pn.main',
+    'pn.layout',
+    'pn.contentHeader',
+    'pn.dashboard',
     'pn.login',
-    'pn.main',
     'pn.modal',
     'pn.mongoose',
     'pn.navbar',
-    'pn.sidebar',
+    'pn.footer',
+    'pn.sidebarLeft',
+    'pn.sidebarRight',
     'pn.socket',
     'pn.settings',
     'pn.signup',
+    'pn.rootClasses',
   ])
 
   .config(($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) => {
@@ -71,6 +83,8 @@ export default angular
   })
 
   .run(($location, $rootScope, Auth) => {
+    $rootScope.rootClasses = ['ng-scope'];
+
     $rootScope.$on('$stateChangeStart', (event, next) => {
       Auth.isLoggedInAsync((loggedIn) => {
         if (next.authenticate && !loggedIn) {
